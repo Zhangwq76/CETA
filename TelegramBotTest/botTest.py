@@ -14,7 +14,7 @@ def chat_with_gpt(message: str) -> str:
     try:
         # 使用聊天接口生成回复
         client = OpenAI(
-           api_key = 'sk-svcacct-WaBPRBqFS9ICIVNSIbKBoja6n5yfdtKtnkncf-xAh5koGdGeht7NsgSFWbRjKYmXpzvT3BlbkFJ4B4NorQxTMSdbjw4HKAaHpeKzv5t3Wgr_o8TA4N41Tc8tx2MkpG3Ah6o2ywvgULci7gA'
+           api_key = '我们的那个API'
         )
         response  = client.chat.completions.create(
             messages=[
