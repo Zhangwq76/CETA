@@ -15,7 +15,7 @@ from db.models import Cloth, Mask, Model, UserUpload
 from django.db.models import Q
 
 
-# Query clothes by list
+# Query clothes by list. Use less.
 def query_cloth_by_list(query_list):
     """
     @param query_list: The user's query must be engineered into a list.
@@ -70,29 +70,32 @@ def query_cloth_by_list(query_list):
     return results
 
 
-# Query clothes by dict
+# Query clothes by dict. Widely used
 def query_cloth_by_dict(query_dict):
     """
-    @param query_dict: The user's query must be engineered into a dictionary.
-    @return: queryset -> queryset
+    @param query_dict: The user's query being engineered into a dictionary by GPT.
+    @type query_dict: dict
+    @return: A queryset of all the matched clothes. Have to check whether there is no matched result.
+    @rtype: queryset
     """
     query = Q()
 
     for field, value in query_dict.items():
         if field in ("color", "style"):
-            query &= Q(**{f"{field}__icontains": value})
+            query |= Q(description__icontains=value) | Q(**{f"{field}": value})
         else:
-            query &= Q(**{f"{field}": value})
+            query &= (Q(**{f"{field}": value}) | Q(description__icontains=value))
+        # query &= Q(description__icontains=value)
 
     results = Cloth.objects.filter(query)
 
     # show the querying result, can be omitted
-    if results.exists():
-        for cloth in results:
-            print(
-                f"Cloth ID: {cloth.cloth_id}, Image Path: {cloth.cloth_image}")
-    else:
-        print("No matching queryset found.")
+    # if results.exists():
+    #     for cloth in results:
+    #         print(
+    #             f"Cloth ID: {cloth.cloth_id}, Image Path: {cloth.cloth_image}")
+    # else:
+    #     print("No matching queryset found.")
 
     return results
 
@@ -100,9 +103,11 @@ def query_cloth_by_dict(query_dict):
 # Query clothes by dict
 def query_mask(cloth_id, mask_type):
     """
-    @param cloth_id:
-    @param mask_type:
-    @return: queryset -> queryset
+    @param cloth_id: string of cloth_id
+    @type cloth_id: str
+    @param mask_type: collar, sleeves, buttons, ...
+    @return: A queryset of all the matched masks. Have to check whether there is no matched result.
+    @rtype: str
     """
     query = Q()
     query &= Q(cloth_id=cloth_id)
@@ -110,13 +115,13 @@ def query_mask(cloth_id, mask_type):
 
     results = Mask.objects.filter(query)
 
-    # show the querying result, can be omitted
-    if results.exists():
-        for mask in results:
-            print(
-                f"Image Path: {mask.mask_image}")
-    else:
-        print("No matching queryset found.")
+    # # show the querying result, can be omitted
+    # if results.exists():
+    #     for mask in results:
+    #         print(
+    #             f"Image Path: {mask.mask_image}")
+    # else:
+    #     print("No matching queryset found.")
 
     return results
 
