@@ -9,4 +9,4 @@ Catvton: https://huggingface.co/zhengchong/CatVTON
 
 stable-diffusion-inpainting: https://huggingface.co/booksforcharlie/stable-diffusion-inpainting
 
-You can put these checkpoint in CETA/model folder.
+You can put these checkpoints in CETA/model folder.
