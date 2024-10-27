@@ -47,7 +47,7 @@ By integrating multiple modalities, CETA provides users with a smooth and seamle
 | Zhang Wenqing | A0296886Y | e1351024@u.nus.edu |
 
 ## VIDEO OF SYSTEM MODELLING & USE CASE DEMO
-Please refer to the final_report folder.
+Please refer to the video folder.
 
 ## USER GUIDE
 **Installation**
