@@ -9,6 +9,7 @@ By utilizing advanced artificial intelligence models and text analysis technolog
 
 ## Installation
 First, you need to prepare your own ChatGPT API key.
+
 Create a conda environment & Install requirments
 ```shell
 conda create -n CETA python==3.9.0
