@@ -37,7 +37,20 @@ Backend :
 
 By integrating multiple modalities, CETA provides users with a smooth and seamless interactive experience throughout the entire process.
 
-## Installation
+## Contributors
+| Official Full Name  | Student ID (MTech Applicable) | Email |
+| :------------ |:---------------:| :-----|
+| Gong Xinyu | A0295988W | e1350126@u.nus.edu |
+| Liu Peilin | A0295988W | e1336515@u.nus.edu |
+| Su Chang | A0296250A | changsu@u.nus.edu |
+| Wang Xinji | A0265810H | e1068718@u.nus.edu |
+| Zhang Wenqing | A0296886Y | e1351024@u.nus.edu |
+
+## VIDEO OF SYSTEM MODELLING & USE CASE DEMO
+Please refer to the final_report folder.
+
+## USER GUIDE
+**Installation**
 First, you need to prepare your own ChatGPT API key.
 
 Create a conda environment & Install requirments
@@ -50,7 +63,7 @@ cd CETA/Catvton
 pip install -r requirements.txt
 ```
 
-## Download Models
+**Download Models**
 To run CETA, you need to download the following models:
 
 [CLIP-ViT-H-14](https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K)
@@ -76,12 +89,5 @@ If you run it successfully, you will see the screen shown below. The robot will 
 
 Detailed use cases please refer to Presentation of Project Result in Finding and Discussion chapter in our final report.
 
-## Contributors
-| Official Full Name  | Student ID (MTech Applicable) | Email |
-| :------------ |:---------------:| :-----|
-| Gong Xinyu | A0295988W | e1350126@u.nus.edu |
-| Liu Peilin | A0295988W | e1336515@u.nus.edu |
-| Su Chang | A0296250A | changsu@u.nus.edu |
-| Wang Xinji | A0265810H | e1068718@u.nus.edu |
-| Zhang Wenqing | A0296886Y | e1351024@u.nus.edu |
-
+## PROJECT REPORT
+Please refer to the final_report folder.
