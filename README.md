@@ -34,19 +34,22 @@ You can put these checkpoints in CETA/model folder.
 ## How to Use
 You can simply run:
 ```shell
-cd CETA/TelegramBotTest
-python botTest.py
+cd CETA/TelegramBot
+python bot.py
 ```
-Then you can talk to the robot now!
+Then open your Telegram and search @CodeAllNight_bot.
 
-Detailed user guide refers to appendix in final report
+If you run it successfully, you will see the screen shown below. The robot will automatically send you instructions.
+![image](https://github.com/user-attachments/assets/2cbe4672-c82e-4194-837b-836533269af8)
+
+Detailed use cases please refer to Presentation of Project Result in Finding and Discussion chapter in our final report.
 
 ## Contributors
 | Official Full Name  | Student ID (MTech Applicable) | Email |
 | :------------ |:---------------:| :-----|
-| Gong Xinyu | A0295988W | 1@u.nus.edu |
-| Liu Peilin | A0295988W | 2@u.nus.edu |
+| Gong Xinyu | A0295988W | e1350126@u.nus.edu |
+| Liu Peilin | A0295988W | e1336515@u.nus.edu |
 | Su Chang | A0296250A | changsu@u.nus.edu |
-| Wang Xinji | A0265810H | 4@u.nus.edu |
-| Zhang Wenqing | A0296886Y | 5@u.nus.edu |
+| Wang Xinji | A0265810H | e1068718@u.nus.edu |
+| Zhang Wenqing | A0296886Y | e1351024@u.nus.edu |
 
