@@ -1,7 +1,7 @@
 from openai import OpenAI
 import json
 
-client = OpenAI(api_key='sk-svcacct-WaBPRBqFS9ICIVNSIbKBoja6n5yfdtKtnkncf-xAh5koGdGeht7NsgSFWbRjKYmXpzvT3BlbkFJ4B4NorQxTMSdbjw4HKAaHpeKzv5t3Wgr_o8TA4N41Tc8tx2MkpG3Ah6o2ywvgULci7gA')
+client = OpenAI(api_key='your own CHATGPT API key')
 
 # Set OpenAI API key
 
