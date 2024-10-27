@@ -34,7 +34,7 @@ def chat_with_gpt(message: str) -> str:
         # 使用聊天接口生成回复
         print("Sending message to OpenAI API...")
         client = OpenAI(
-           api_key = 'sk-svcacct-WaBPRBqFS9ICIVNSIbKBoja6n5yfdtKtnkncf-xAh5koGdGeht7NsgSFWbRjKYmXpzvT3BlbkFJ4B4NorQxTMSdbjw4HKAaHpeKzv5t3Wgr_o8TA4N41Tc8tx2MkpG3Ah6o2ywvgULci7gA'
+           api_key = 'You own ChatGPT API key'
         )
         response  = client.chat.completions.create(
             messages=[
