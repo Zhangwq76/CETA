@@ -6,6 +6,34 @@ By utilizing advanced artificial intelligence models and text analysis technolog
 
 ![image](https://github.com/user-attachments/assets/89bedefa-deda-454c-a5e3-b53d1663fec5)
 
+## EXECUTIVE SUMMARY
+**What is CETA**
+CETA is an AI-driven fashion assistant designed to provide personalized clothing recommendations, edit accessories on clothing, and offer virtual try-on experiences.
+
+Leveraging advanced AI models and sophisticated text analysis, CETA can achieve the following tasks:
+
+* Interpreting users' natural language inputs and suggesting tailored fashion options in text or image format.
+* Generating customized clothing designs based on user-provided images and specific clothing accessory requirements.
+* Providing model try-on image generation functionality.
+
+**Advantages of CETA :**
+* Accurate Personalization in Recommendation.
+CETA leverages NLP to deeply understand users’ needs, providing more precise and tailored clothing recommendations in text or image format.
+*Virtual Try-On Experience.
+Allows users to preview outfits before purchasing, reducing return rates and enhancing shopping confidence.
+*Smart Interaction
+Using a simple and intuitive interface through Telegram Bot, users can easily get suggestions and fitting results.
+
+**How do we develop CETA?**
+Frontend :
+*Telegram Bot: Acts as the interaction interface, allowing users to communicate using natural language or images.
+*Personalized Recommendations: Provides customized clothing suggestions based on user input.
+*Backend :
+**SQLite Database: Used to store clothing data and user interaction records.
+**Fashion Adapter Module: Responsible for generating customized clothing designs.
+**CatVTON Module: Used to generate virtual try-on effects.
+
+By integrating multiple modalities, CETA provides users with a smooth and seamless interactive experience throughout the entire process.
 
 ## Installation
 First, you need to prepare your own ChatGPT API key.
