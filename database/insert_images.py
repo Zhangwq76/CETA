@@ -5,7 +5,7 @@ import json
 
 # If this file is not the same level as manage.py, then use this code
 # Set the root path of Django ORM database, make sure finding settings.py
-# sys.path.append('D:/NUS/CETA/database')  # modify into the Django ORM database path
+sys.path.append('E:/CodeAllNight/CETA/CETA/database')  # modify into the Django ORM database path
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'database.settings')  # setting env, make sure pointing at settings.py
 
@@ -13,7 +13,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'database.settings')  # setting 
 django.setup()
 
 # 导入模型
-from db.models import Cloth, Mask, UserUpload, Model
+from db.models import Cloth, Mask, Model, Memory
 
 
 # Iterate the images folder
@@ -143,32 +143,34 @@ def insert_in_model_table():
         model_obj.save()
 
 
-# When the user upload an image, store it temporarily in userUpload table
-def insert_in_userUpload_table(filepath, type, user_description):
+# 将数据存入记忆表
+def insert_in_memory_table(text, transaction, image_path=''):
     """
-    @param filepath: the downloaded file path user uploaded
-    @param type: extract what image_type of this picture
-    @param user_description: save how user describe this clothes. There may be important information inside.
-    @return: bool -> whether the image is successfully saved
-    """
-    try:
-        userUpload_obj = UserUpload(
-            image_type=type,
-            user_description=user_description,
-            user_image=filepath
-        )
-        userUpload_obj.save()
-        return True
+    @param text: text info.
+    @type text: str
 
-    except:
-        return False
+    @param image_path: img info.
+    @type image_path: str
+    
+    @return: no return.
+    
+    @raise Exception: Exception description.
+    """
+    memory_obj = Memory(
+        text=text,
+        image=image_path,
+        transaction=transaction
+    )
+
+    memory_obj.save()
+
 
 
 # main
 if __name__ == '__main__':
     # initialize our database
     # insert_in_cloth_table()
-    insert_in_model_table()
+    # insert_in_model_table()
 
     # Test the insert_in_userUpload_table function
     # filepath = "D:/Poison_intern/出价8-3/8394807_2.jpg"
@@ -176,3 +178,4 @@ if __name__ == '__main__':
     # description = "This is my own photo, and I want to save it for further try-on."
     #
     # flag = insert_in_userUpload_table(filepath, image_type, description)
+    pass

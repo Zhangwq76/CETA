@@ -1,6 +1,6 @@
 from torch.nn import functional as F
 import torch
-# from flash_attn import flash_attn_func
+
 
 class SkipAttnProcessor(torch.nn.Module):
     def __init__(self, *args, **kwargs) -> None:
@@ -85,13 +85,9 @@ class AttnProcessor2_0(torch.nn.Module):
 
         # the output of sdp = (batch, num_heads, seq_len, head_dim)
         # TODO: add support for attn.scale when we move to Torch 2.1
-        
         hidden_states = F.scaled_dot_product_attention(
             query, key, value, attn_mask=attention_mask, dropout_p=0.0, is_causal=False
         )
-        # hidden_states = flash_attn_func(
-        #     query, key, value, dropout_p=0.0, causal=False
-        # )
 
         hidden_states = hidden_states.transpose(1, 2).reshape(batch_size, -1, attn.heads * head_dim)
         hidden_states = hidden_states.to(query.dtype)

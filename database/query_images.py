@@ -11,7 +11,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'database.settings')  # setting 
 # Initialize Django environment
 django.setup()
 
-from db.models import Cloth, Mask, Model, UserUpload
+from db.models import Cloth, Mask, Model, Memory
 from django.db.models import Q
 
 
@@ -150,30 +150,18 @@ def query_model(gender, pos_type):
     return results
 
 
-# If the user prefer to use the thing he uploaded before...
-def query_userUpload(image_type='all', start=0, count=1):
+# query data from memory (temporary)
+def query_memory():
     """
-    @param image_type: model? cloth? segment? default value is 'all', means that the function will not filter data by image_type in advance
-    @param start: sliding window's starting point. default value is 0, means that we extract the latest data
-    @param count: sliding window's length. default value is 1, means that we extract one data from the starting point
-    @return: results -> queryset
+    @param param_name: Description of param.
+    @type param_name: param_type
+    
+    @return: the latest data in Memory table. (temporary)
+    @rtype: queryset
+    
+    @raise Exception: none.
     """
-    if image_type != 'all':
-        query = Q()
-        query &= Q(image_type=image_type)
-        filtered_images = UserUpload.objects.filter(query)
-    else:
-        filtered_images = UserUpload.objects.all()
-
-    results = filtered_images.order_by('-upload_time')[start:start+count]
-
-    if results.exists():
-        for uU in results:
-            print(
-                f"Image Path: {uU.user_image}")
-    else:
-        print("No matching queryset found.")
-
+    results = Memory.objects.order_by('-timestamp').first()
     return results
 
 
@@ -184,15 +172,15 @@ if __name__ == '__main__':
     # keywords = ["khaki", "men"]
     # queryset1 = query_cloth_by_list(keywords)
     #
-    print('---------------------')
+    # print('---------------------')
 
-    print("Test the query_cloth_by_dict function")
-    pairs = {
-        'color': 'white',
-        'season': 'summer',
-        'fabric': 'cotton'
-    }
-    queryset2 = query_cloth_by_dict(pairs)
+    # print("Test the query_cloth_by_dict function")
+    # pairs = {
+    #     'color': 'white',
+    #     'season': 'summer',
+    #     'fabric': 'cotton'
+    # }
+    # queryset2 = query_cloth_by_dict(pairs)
     #
     # print('----------------------')
     #
@@ -213,4 +201,7 @@ if __name__ == '__main__':
     # print("Test the query_userUpload function")
     # image_type = "model"
     # queryset5 = query_userUpload(image_type)
+
+    queryset6 = query_memory()
+    print(queryset6.image)
 

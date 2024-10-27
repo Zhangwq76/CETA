@@ -1,7 +1,7 @@
-import openai
+from openai import OpenAI
 import json
 
-openai.api_key='sk-svcacct-WaBPRBqFS9ICIVNSIbKBoja6n5yfdtKtnkncf-xAh5koGdGeht7NsgSFWbRjKYmXpzvT3BlbkFJ4B4NorQxTMSdbjw4HKAaHpeKzv5t3Wgr_o8TA4N41Tc8tx2MkpG3Ah6o2ywvgULci7gA'
+client = OpenAI(api_key='sk-svcacct-WaBPRBqFS9ICIVNSIbKBoja6n5yfdtKtnkncf-xAh5koGdGeht7NsgSFWbRjKYmXpzvT3BlbkFJ4B4NorQxTMSdbjw4HKAaHpeKzv5t3Wgr_o8TA4N41Tc8tx2MkpG3Ah6o2ywvgULci7gA')
 
 # Set OpenAI API key
 
@@ -105,6 +105,8 @@ feature_options = {
 available_accessories = [
     'belt', 'body_piece', 'button', 'collar', 'cuff', 'hood', 'placket', 'pocket', 'waist_band'
 ]
+
+
 # construct active prompt
 # Function to construct active prompt and parse user input
 def update_feature_with_accessory(original_dict, accessory):
@@ -125,7 +127,48 @@ def update_feature_with_accessory(original_dict, accessory):
     }
     
     return updated_dict
+
+
+# Get what accessory the user want to engineer
+def parse_accessory_demand(user_input):
+    """
+    @param user_input: Natural language by user.
+    @type user_input: str
+    
+    @return: the name of accessory.
+    @rtype: str
+    
+    @raise Exception: Exception description.
+    """
+    # Generate a prompt for the GPT model using the feature validation rules
+    response = client.chat.completions.create(
+        model="gpt-4o",  # Try using gpt-3.5-turbo or gpt-4，这边一定记得是4o
+        messages=[
+            {"role": "system", "content": (
+                f"You are a clothing recommendation assistant. "
+                f"Your task is to extract accessory the user wants to modify, like belt, button, collar, and so on. "
+                f"You should choose the type of the accessory based on this list: {available_accessories}. "
+                "Only return one from the aforementioned list. If none of them are suitable, respond 'invalid'."
+            )},
+        
+            {"role": "user", "content": f"User input: '{user_input}' Find out what kind of accessory the user wants to modify based on the provided list."}
+        ]
+    )
+
+    return response.choices[0].message.content
+
+
+
 def parse_user_input(user_input):
+    """
+    @param user_input: Natural language by user.
+    @type user_input: str
+    
+    @return: the dictionary of user's input features.
+    @rtype: dict
+    
+    @raise Exception: none.
+    """
     # List to store feature validation information
     options_str = []
 
@@ -140,8 +183,8 @@ def parse_user_input(user_input):
     options_prompt = ", ".join(options_str)
 
     # Generate a prompt for the GPT model using the feature validation rules
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # Try using gpt-3.5-turbo or gpt-4
+    response = client.chat.completions.create(
+        model="gpt-4o",  # Try using gpt-3.5-turbo or gpt-4，这边一定记得是4o
         messages=[
             {"role": "system", "content": (
                 f"You are a clothing recommendation assistant. "
@@ -156,10 +199,10 @@ def parse_user_input(user_input):
     )
 
     # Return GPT's response, which contains the parsed features as a dictionary
-    parsed_result = response['choices'][0]['message']['content']
+    parsed_result = response.choices[0].message.content
 
     # Add print statement for debugging
-    print("Raw GPT Response:", parsed_result)
+    # print("Raw GPT Response:", parsed_result)
 
     try:
         # Try to decode JSON
@@ -171,11 +214,14 @@ def parse_user_input(user_input):
 
     return parsed_result
 
+
 if __name__ == '__main__':
     # Step 1: 用户第一次输入
     user_input = "I want a simple green long dress for the night party."
     parsed_result = parse_user_input(user_input)
     print("Original recommendation:", parsed_result)
+    # 把用户的搜索字典保存在数据库中
+
 
     # Step 3: 用户第二次输入
     print("\nYou may choose to add one of the following accessories:")
@@ -195,3 +241,6 @@ if __name__ == '__main__':
             print("Invalid choice. No changes made.")
     else:
         print("No changes made.")
+
+    # 测试parse_accessory_demand函数
+    print(parse_accessory_demand("I want to add a white pattern on this t-shirt.")['choices'][0]['message']['content'])

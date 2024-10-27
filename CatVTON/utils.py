@@ -168,6 +168,115 @@ def init_add_item_id(config):
     ).repeat(config.train_batch_size, 1)
 
 
+def prepare_eval_data(dataset_root, dataset_name, is_pair=True):
+    assert dataset_name in ["vitonhd", "dresscode", "farfetch"], "Unknown dataset name {}.".format(dataset_name)
+    if dataset_name == "vitonhd":
+        data_root = os.path.join(dataset_root, "VITONHD-1024", "test")
+        if is_pair:
+            keys = os.listdir(os.path.join(data_root, "Images"))
+            cloth_image_paths = [
+                os.path.join(data_root, "Images", key, key + "-0.jpg") for key in keys
+            ]
+            person_image_paths = [
+                os.path.join(data_root, "Images", key, key + "-1.jpg") for key in keys
+            ]
+        else:
+            # read ../test_pairs.txt
+            cloth_image_paths = []
+            person_image_paths = []
+            with open(
+                os.path.join(dataset_root, "VITONHD-1024", "test_pairs.txt"), "r"
+            ) as f:
+                lines = f.readlines()
+                for line in lines:
+                    cloth_image, person_image = (
+                        line.replace(".jpg", "").strip().split(" ")
+                    )
+                    cloth_image_paths.append(
+                        os.path.join(
+                            data_root, "Images", cloth_image, cloth_image + "-0.jpg"
+                        )
+                    )
+                    person_image_paths.append(
+                        os.path.join(
+                            data_root, "Images", person_image, person_image + "-1.jpg"
+                        )
+                    )
+    elif dataset_name == "dresscode":
+        data_root = os.path.join(dataset_root, "DressCode-1024")
+        if is_pair:
+            part = ["lower", "lower", "upper", "upper", "dresses", "dresses"]
+            ids = ["013581", "051685", "000190", "050072", "020829", "053742"]
+            cloth_image_paths = [
+                os.path.join(data_root, "Images", part[i], ids[i], ids[i] + "_1.jpg")
+                for i in range(len(part))
+            ]
+            person_image_paths = [
+                os.path.join(data_root, "Images", part[i], ids[i], ids[i] + "_0.jpg")
+                for i in range(len(part))
+            ]
+        else:
+            raise ValueError("DressCode dataset does not support non-pair evaluation.")
+    elif dataset_name == "farfetch":
+        data_root = os.path.join(dataset_root, "FARFETCH-1024")
+        cloth_image_paths = [
+            # TryOn
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Blouses/13732751/13732751-2.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Hoodies/14661627/14661627-4.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Vests & Tank Tops/16532697/16532697-4.jpg",
+            "Images/men/Pants/Loose Fit Pants/14750720/14750720-6.jpg",
+            # Garment Transfer
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Shirts/10889688/10889688-3.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Shorts/Leather & Faux Leather Shorts/20143338/20143338-1.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Jackets/Blazers/15541224/15541224-2.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/men/Polo Shirts/Polo Shirts/17652415/17652415-0.jpg"
+            
+            # "Images/men/Jackets/Hooded Jackets/12550261/12550261-1.jpg",
+            # "Images/men/Shirts/Shirts/15614589/15614589-4.jpg",
+            # "Images/women/Dresses/Day Dresses/10372515/10372515-3.jpg",
+            # "Images/women/Dresses/Sundresses/18520992/18520992-4.jpg",
+            # "Images/women/Skirts/Asymmetric & Draped Skirts/12404908/12404908-2.jpg",
+        ]
+        person_image_paths = [
+            # TryOn
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Blouses/13732751/13732751-0.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Hoodies/14661627/14661627-2.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Vests & Tank Tops/16532697/16532697-1.jpg",
+            "Images/men/Pants/Loose Fit Pants/14750720/14750720-5.jpg",
+            # Garment Transfer
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Tops/Shirts/10889688/10889688-1.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Shorts/Leather & Faux Leather Shorts/20143338/20143338-2.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/women/Jackets/Blazers/15541224/15541224-0.jpg",
+            "/home/chongzheng/Projects/hivton/Datasets/FARFETCH-1024/Images/men/Polo Shirts/Polo Shirts/17652415/17652415-4.jpg",
+            
+            # "Images/men/Jackets/Hooded Jackets/12550261/12550261-3.jpg",
+            # "Images/men/Shirts/Shirts/15614589/15614589-3.jpg",
+            # "Images/women/Dresses/Day Dresses/10372515/10372515-0.jpg",
+            # "Images/women/Dresses/Sundresses/18520992/18520992-1.jpg",
+            # "Images/women/Skirts/Asymmetric & Draped Skirts/12404908/12404908-1.jpg",
+        ]
+        cloth_image_paths = [
+            os.path.join(data_root, path) for path in cloth_image_paths
+        ]
+        person_image_paths = [
+            os.path.join(data_root, path) for path in person_image_paths
+        ]
+    else:
+        raise ValueError(f"Unknown dataset name: {dataset_name}")
+
+    samples = [
+        {
+            "folder": os.path.basename(os.path.dirname(cloth_image)),
+            "cloth": cloth_image,
+            "person": person_image,
+        }
+        for cloth_image, person_image in zip(
+            cloth_image_paths, person_image_paths
+        )
+    ]
+    return samples
+
+
 def repaint_result(result, person_image, mask_image):
     result, person, mask = np.array(result), np.array(person_image), np.array(mask_image)
     # expand the mask to 3 channels & to 0~1

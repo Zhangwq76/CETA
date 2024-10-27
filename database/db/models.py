@@ -77,12 +77,13 @@ class Model(models.Model):
     # We use CharField to save the path of image. We have to secure the path is correct!
 
 
-# User upload pictures
-class UserUpload(models.Model):
-    image_type = models.CharField(max_length=100)  # model? cloth? segment? Choose between these three and save
-    user_description = models.TextField()  # save what user describe on this
-    user_image = models.CharField(max_length=255)  # assign a place to save users' upload
-    upload_time = models.DateTimeField(auto_now_add=True)  # save when the user upload this image.
+# 临时存储地点，自写记忆功能. We try to deploy a memory function
+class Memory(models.Model):
+    text = models.CharField(max_length=255)  # save the text infomation
+    image = models.CharField(max_length=255, default="no image")  # save the image information
+    transaction = models.CharField(max_length=255, default="user upload")  # save the type of this data
+    timestamp = models.DateTimeField(auto_now_add=True)  # save the timestamp when the data written into this table
+
 
 
 """REMEMBER TO MIGRATE!!!"""
