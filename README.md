@@ -46,7 +46,7 @@ Detailed user guide refers to appendix in final report
 | :------------ |:---------------:| :-----|
 | Gong Xinyu | A0295988W | 1@u.nus.edu |
 | Liu Peilin | A0295988W | 2@u.nus.edu |
-| Su Chang | A0296250A | 3@u.nus.edu |
+| Su Chang | A0296250A | changsu@u.nus.edu |
 | Wang Xinji | A0265810H | 4@u.nus.edu |
 | Zhang Wenqing | A0296886Y | 5@u.nus.edu |
 
