@@ -41,7 +41,7 @@ By integrating multiple modalities, CETA provides users with a smooth and seamle
 | Official Full Name  | Student ID (MTech Applicable) | Email |
 | :------------ |:---------------:| :-----|
 | Gong Xinyu | A0295988W | e1350126@u.nus.edu |
-| Liu Peilin | A0295988W | e1336515@u.nus.edu |
+| Liu Peilin | A0295951X | e1336515@u.nus.edu |
 | Su Chang | A0296250A | changsu@u.nus.edu |
 | Wang Xinji | A0265810H | e1068718@u.nus.edu |
 | Zhang Wenqing | A0296886Y | e1351024@u.nus.edu |
