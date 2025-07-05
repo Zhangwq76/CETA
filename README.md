@@ -88,7 +88,7 @@ If you run it successfully, you will see the screen shown below. The robot will 
 ![image](https://github.com/user-attachments/assets/2cbe4672-c82e-4194-837b-836533269af8)
 
 Detailed use cases please refer to Presentation of Project Result in Finding and Discussion chapter in our final report.
-For testing, you can use the images in demo_img folder.
+For testing, you can use the images in demo_img folder,thank you.
 
 ## PROJECT REPORT
 Please refer to the final_report folder.
